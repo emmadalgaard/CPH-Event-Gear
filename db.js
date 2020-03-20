@@ -7,12 +7,11 @@ const url = "mongodb://localhost:27017";
 const dbName = "myproject";
 const client = new MongoClient(url);
 
-client.connect().then(() => {
-    console.log("Connected successfully to server");
-
-    const db = client.db(dbName);
-
-    client.close();
-});
-
-
+// med mongodb er vi nødt til at kalde connect(), før vi kan få en instans af db klassen
+function getDb() {
+    return client.connect().then(() => {
+        return client.db(dbName);
+    });
+}
+// hver gang vi har brug for en db instans skal vi kalde funktionen getDb
+module.exports = getDb;
