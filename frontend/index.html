@@ -1,0 +1,16 @@
+<h1>DEMO</h1>
+<div class="customers"></div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', async (event) => {
+        const demo = await fetch("http://localhost:3000/customer"); //kald backend og brug data i frontend
+        const customers = await demo.json();
+        document.querySelector(".customers").innerHTML = customers[1].name;
+    });
+
+    window.addEventListener('DOMContentLoaded', async (event) => {
+        const demo = await fetch("http://localhost:3000/customer"); //kald backend og brug data i frontend
+        const eventpackages = await demo.json();
+        document.querySelector(".customers").innerHTML = eventpackages[1].name;
+    });
+</script>
