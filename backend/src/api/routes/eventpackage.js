@@ -16,7 +16,7 @@ async function createEventPackage(data) {
 module.exports = {
     addEndpoints: async router => {
         router.use("/eventpackage", route);
-        //her kan i beskrive alle jeres endpoints, som har noget med eventpackage at gøre
+        //her kan vi beskrive alle vores endpoints, som har noget med eventpackage at gøre
         route.get("/", (req, res) => {
             getAllEventPackages().then(result => {
                 res.status(200).json(result);

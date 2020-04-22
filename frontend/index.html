@@ -9,8 +9,8 @@
     });
 
     window.addEventListener('DOMContentLoaded', async (event) => {
-        const demo = await fetch("http://localhost:3000/customer"); //kald backend og brug data i frontend
+        const demo = await fetch("http://localhost:3000/eventpackages"); //kald backend og brug data i frontend
         const eventpackages = await demo.json();
-        document.querySelector(".customers").innerHTML = eventpackages[1].name;
+        document.querySelector(".eventpackages").innerHTML = eventpackages[1].name;
     });
 </script>

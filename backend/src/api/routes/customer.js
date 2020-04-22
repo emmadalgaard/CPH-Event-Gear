@@ -16,7 +16,7 @@ async function createCustomer(data) {
 module.exports = {
     addEndpoints: async router => {
         router.use("/customer", route);
-        //her kan i beskrive alle jeres endpoints, som har noget med customer at gøre.
+        //her kan vi beskrive alle vores endpoints, som har noget med customer at gøre.
         route.get("/", (req, res) => {
             getAllCustomers().then(result => {
                 res.status(200).json(result);
