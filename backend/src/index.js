@@ -13,10 +13,6 @@ function startServer() {
     // must return a Router
     app.use("/", routes.addRoutes()); // Her tilføjes jeres routes. Når i skal tilføje nye, skal redigere i hhv api/index.js samt tilføje en ny fil i api/routes
 
-    app.get("/", (req, res) => {
-        res.send("HELLO EMS!"); //Dette er jeres root endpoint. Hvis i åbner localhost:3000 kaldes denne metode
-    });
-
     //Establish database connection
     db.getConnection();
 
