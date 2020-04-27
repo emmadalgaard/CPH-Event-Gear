@@ -11,7 +11,6 @@ class Customer {
     }
 }
 
-
 /*MD:
 The purpose of the code is validate the input in the registration form. We achieve this by using a boolean value
 that returns false if some of the text fields are invalid.
@@ -96,8 +95,18 @@ The JSON.stringify command does the opposite, and converts JavaScript values to 
 The method .push is used to introduce a new customer object into the back of the userArray.
 .setItem is used to put data into the localStorage.
 */
-    if (form_valid) {
 
+
+    if (form_valid) {
+        rawResponse = await fetch('https://httpbin.org/post', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({a: 1, b: 'Textual content'})
+
+        /*
         var userArray = JSON.parse(localStorage.getItem('userArray'));
         userArray.push(new Customer(customerName, address, city, phone, email, password));
 
@@ -107,6 +116,7 @@ The method .push is used to introduce a new customer object into the back of the
 
     } else {
         alert(validation_message)
+        */
     }
 
 }
