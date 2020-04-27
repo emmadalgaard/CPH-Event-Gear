@@ -1,7 +1,7 @@
 //customer model, som definerer, hvad der inde i min bruger - dette skal laves for alle objekter, vi har i databasen.
 const mongoose = require("mongoose");
 const CustomerSchema = new mongoose.Schema({
-    name: {
+    customerName: {
         type: String,
         required: true
     },

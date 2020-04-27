@@ -1,18 +1,18 @@
 class Customer {
-    constructor(name, address, city, email, password, phone) {
-        this.name = name;
+    constructor(customerName, address, city, phone, email, password) {
+        this.customerName = customerName;
         this.address = address;
         this.city = city;
+        this.phone = phone;
         this.email = email;
         this.password = password;
-        this.phone = phone;
     }
 
-    changeName = (name) => {
+    /*changeName = (name) => {
         this.name = name;
     };
 
     changeName(name) {
-        
-    }
+
+    }*/
 }

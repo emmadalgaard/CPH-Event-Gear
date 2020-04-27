@@ -1,6 +1,4 @@
-//MD: A class is created. Classes can in JavaScript be used for creating objects (instantiation)
-//Written by Morten Dyberg/Markus Kronborg
-class Customer {
+/*class Customer {
     constructor(customerName, address, city, phone, email, password){
         this.customerName = customerName;
         this.address = address;
@@ -9,14 +7,13 @@ class Customer {
         this.email = email;
         this.password = password;
     }
-}
+}*/
 
 /*MD:
 The purpose of the code is validate the input in the registration form. We achieve this by using a boolean value
 that returns false if some of the text fields are invalid.
  */
-//This code is written by Morten Dyberg
-function register() {
+async function register() {
     var customerName = document.getElementById("customerName").value;
     var address = document.getElementById("address").value;
     var city = document.getElementById("city").value;
@@ -31,40 +28,35 @@ function register() {
     var validation_message = "";
 
     //2. Validating the name
-    if (customerName==null || customerName=="")
-    {
+    if (customerName == null || customerName == "") {
         document.getElementById('customerName').style.borderColor = "red";
         validation_message += "Venligst udfyld navn!";
         form_valid = false;
     }
 
     //3. Validating the address (same method as the name)
-    if (address==null || address=="")
-    {
+    if (address == null || address == "") {
         document.getElementById('address').style.borderColor = "red";
         validation_message += "Venligst udfyld addresse!";
         form_valid = false;
     }
 
     //4. Validating the City
-    if (city==null || city=="")
-    {
+    if (city == null || city == "") {
         document.getElementById('city').style.borderColor = "red";
         validation_message += "Venligst udfyld by!";
         form_valid = false;
     }
 
     //5. Validating the phone number using isNaN method
-    if (isNaN(phone) || phone==null || phone=="")
-    {
+    if (phone == null || phone == "") {
         document.getElementById('phone').style.borderColor = "red";
         validation_message += "Venligst udfyld telefonnummer!";
         form_valid = false;
     }
 
     //6. Validating the e-mail
-    if (email==null || email=="")
-    {
+    if (email == null || email == "") {
         document.getElementById('email').style.borderColor = "red";
         validation_message += "Venligst udfyld E-mail!";
         form_valid = false;
@@ -72,8 +64,7 @@ function register() {
 
     /*7. Validating the password(s).
      */
-    if (password==null || password=="" || confirmPassword==null || confirmPassword=="")
-    {
+    if (password == null || password == "" || confirmPassword == null || confirmPassword == "") {
         document.getElementById('password').style.borderColor = "red";
         document.getElementById('confirmPassword').style.borderColor = "red";
         validation_message += "Venligst udfyld password!";
@@ -81,45 +72,64 @@ function register() {
     }
 
     //This if statement checks whether the password and confirmPassword values are equal to eachother.
-    if (document.getElementById("password").value!=document.getElementById("confirmPassword").value) {
+    if (document.getElementById("password").value != document.getElementById("confirmPassword").value) {
         document.getElementById('confirmPassword').style.borderColor = "red";
         validation_message += "Passwords er ikke ens";
         form_valid = false;
     }
 
-/*MD:
-This statement checks whether the form is valid. If it is valid, that means that none of the above conditions have
-been met in order to make the form_valid = false.
-The JSON.parse command takes some JSON data and converts it back to JavaScript values.
-The JSON.stringify command does the opposite, and converts JavaScript values to a JSON-encoded string.
-The method .push is used to introduce a new customer object into the back of the userArray.
-.setItem is used to put data into the localStorage.
-*/
+    /*MD:
+    This statement checks whether the form is valid. If it is valid, that means that none of the above conditions have
+    been met in order to make the form_valid = false.
+    The JSON.parse command takes some JSON data and converts it back to JavaScript values.
+    The JSON.stringify command does the opposite, and converts JavaScript values to a JSON-encoded string.
+    The method .push is used to introduce a new customer object into the back of the userArray.
+    .setItem is used to put data into the localStorage.
+    */
 
-
+    //let rawResponse;
     if (form_valid) {
-        rawResponse = await fetch('https://httpbin.org/post', {
+        rawResponse = await fetch("http://localhost:3000/customer", {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({a: 1, b: 'Textual content'})
+            body: JSON.stringify({
+                "customerName": customerName,
+                "address": address,
+                "city": city,
+                "phone": phone,
+                "email": email,
+                "password": password
+            })
+        });
+        /*const content = await rawResponse.json();
+
+        console.log(content); */
+
+        alert("Ny bruger er blevet oprettet");
+        window.location = "Loginpage.html";
+    } else {
+        alert(validation_message)
+    }
+}
+
+
 
         /*
         var userArray = JSON.parse(localStorage.getItem('userArray'));
         userArray.push(new Customer(customerName, address, city, phone, email, password));
 
         localStorage.setItem("userArray", JSON.stringify(userArray));
-        alert("Ny bruger er blevet oprettet");
-        window.location = "Loginpage.html";
+
 
     } else {
         alert(validation_message)
-        */
-    }
 
-}
+    } */
+
+
 
 
 
