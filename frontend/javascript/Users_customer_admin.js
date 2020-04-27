@@ -1,14 +1,3 @@
-/*class Customer {
-    constructor(customerName, address, city, phone, email, password){
-        this.customerName = customerName;
-        this.address = address;
-        this.city = city;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-    }
-}*/
-
 /*MD:
 The purpose of the code is validate the input in the registration form. We achieve this by using a boolean value
 that returns false if some of the text fields are invalid.
@@ -62,8 +51,7 @@ async function register() {
         form_valid = false;
     }
 
-    /*7. Validating the password(s).
-     */
+    //7. Validating the password(s).
     if (password == null || password == "" || confirmPassword == null || confirmPassword == "") {
         document.getElementById('password').style.borderColor = "red";
         document.getElementById('confirmPassword').style.borderColor = "red";
@@ -78,16 +66,10 @@ async function register() {
         form_valid = false;
     }
 
-    /*MD:
-    This statement checks whether the form is valid. If it is valid, that means that none of the above conditions have
+    /* This statement checks whether the form is valid. If it is valid, that means that none of the above conditions have
     been met in order to make the form_valid = false.
-    The JSON.parse command takes some JSON data and converts it back to JavaScript values.
-    The JSON.stringify command does the opposite, and converts JavaScript values to a JSON-encoded string.
-    The method .push is used to introduce a new customer object into the back of the userArray.
-    .setItem is used to put data into the localStorage.
+    skriv kommentar til, hvad der sker i nedenstående rawReponse og læs op på det
     */
-
-    //let rawResponse;
     if (form_valid) {
         rawResponse = await fetch("http://localhost:3000/customer", {
             method: 'POST',
@@ -104,9 +86,6 @@ async function register() {
                 "password": password
             })
         });
-        /*const content = await rawResponse.json();
-
-        console.log(content); */
 
         alert("Ny bruger er blevet oprettet");
         window.location = "Loginpage.html";
@@ -115,31 +94,13 @@ async function register() {
     }
 }
 
-
-
-        /*
-        var userArray = JSON.parse(localStorage.getItem('userArray'));
-        userArray.push(new Customer(customerName, address, city, phone, email, password));
-
-        localStorage.setItem("userArray", JSON.stringify(userArray));
-
-
-    } else {
-        alert(validation_message)
-
-    } */
-
-
-
-
-
 /*MD:
 The following code will execute if the value of the userArray key in localStorage is null. If it is empty, it will push
 the following pre-defined user objects into the array, then stringify to JSON format and then add them to localStorage.
 The objects all have the same properties, but with different values.
  */
 //Originally written by Markus Kronborg, changed to fit new needs by Morten Dyberg
-var userArray;
+/*var userArray;
 if (localStorage.getItem('userArray')==null) {
     userArray = [];
 
@@ -151,7 +112,7 @@ if (localStorage.getItem('userArray')==null) {
     
     var userArrayString = JSON.stringify(userArray);
     localStorage.setItem('userArray', userArrayString);
-}
+}*/
 
 
 
@@ -162,14 +123,56 @@ is met.
 The condition checks whether the input phone/password matches the phone/password of the array at index i.
 If it matches, the user is sent to the front page, and the user information is stored in their respective keys.
  */
-//Function written by Morten Dyberg
-function loginVal() {
+
+//receives a JSON response from the server and then converts the response to a JavaScript object.
+async function loginVal(phone, password) {
+    let success = false;
+    const customerArray = await (
+        await fetch("http://localhost:3000/customer")
+    ).json();
+    customerArray.forEach((customer) => {
+        if (phone == customer.phone && password == customer.password) {
+            success = true;
+        }
+
+    });
+
+    if(success) {
+        console.log("You successfully logged in");
+    } else {
+        console.log("Wrong login, try again");
+    }
+    return success;
+}
+
+/*
+app.get   (req,res) => {
+
+}
+
+async function loginVal(){
+    var phone = document.getElementById("phone").value;
+    var password = document.getElementById("password").value;
+    //var status = false;
+
+    var client = new HttpClient();
+    client.get("http://localhost:3000/customer", function(response) {
+        // do something with response
+    });
+}*/
+
+/* for at finde phone og passwrod
+BlogPost.find({ title:/The/}, (error, blogspot) =>{ console.log(error,blogspot) })
+ */
+
+
+/*function loginVal() {
     var userArray = JSON.parse(localStorage.getItem('userArray'));
     var phone = document.getElementById("phone").value;
     var password = document.getElementById("password").value;
-    var status = false;
+    var status = false;*/
 
-    for (var i = 0; i < userArray.length; i++) {
+   /* for (var i = 0; i < userArray.length; i++) {
         if (phone == userArray[i].phone && password == userArray[i].password) {
             status = true;
             window.location = "index.html";
@@ -186,12 +189,11 @@ function loginVal() {
     }
     if (status==false) {
         alert("Forkert ID eller password. Prøv igen.");
-    }
-}
+    }*/
+
 
 
 //A class is created for the admin. The only properties in this class are username and password.
-//Class written by Markus Kronborg
 class Admin {
     constructor(username, password) {
         this.username = username;
@@ -211,7 +213,6 @@ It retrieves the input entered, and uses an if-statement to check whether the in
 object. The first else if statement will execute if the if statement is false. If the phone (username) entered is not
 admin, it will call the loginVal function, which loops through the user array.
  */
-//Function written by Morten Dyberg
 function validate() {
     var phone = document.getElementById("phone").value;
     var password = document.getElementById("password").value;
@@ -237,7 +238,7 @@ The value of this option is manipulated using the .innerHTML property, which let
 HTML document. Lastly, the .appendChild method is used to append the new node (option) into the select field.
  */
 //Function originally written by Markus Kronborg, changed quite a bit by Morten Dyberg
-var selection = document.getElementById("phoneSelect");
+/*var selection = document.getElementById("phoneSelect");
 
 (function getNumber() {
     var userArray = JSON.parse(localStorage.getItem('userArray'));
@@ -250,7 +251,7 @@ var selection = document.getElementById("phoneSelect");
         document.getElementById("phoneSelect").appendChild(allUsers);
     }
 //Self-invoking function: functions doesn't need to be called to activate.
-}());
+}());*/
 
 
 /*MD:
