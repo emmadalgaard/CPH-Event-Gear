@@ -1,6 +1,7 @@
 /* MM: The following function uses an if statement with the condition that the phone key in local storage has to equal null.
 If the condition is true, it sends the user to the login page, as the user is not logged in. If not, it allows the user to access the order page.
 The function is activated by the onclick attribute specified on the "Bestil tid" button HTML tag.
+Dette skal laves om til, at man som gæst godt kan se produkterne, man kan bare ikke tilføje dem til en ordre.
  */
 function checkLoginOrderPage() {
     if (localStorage.getItem("phone") == null) {
@@ -22,7 +23,6 @@ function checkLoginProfilePage() {
 /* MM: The logOut function removes the specified keys from the local storage. By removing the keys, the user is seen as
 logged out by the system.
  */
-//Function written by Morten Dyberg
 function logOut() {
     localStorage.removeItem("customerName");
     localStorage.removeItem("address");
@@ -63,6 +63,7 @@ async function populateOrders() {
         /*
             MM: The innerHTML of the newly created <p> tag is set equal to a section of text and the variables above.
              */
+        //amount 1,2,3 skal checkes for, om de er tomme - hvis tomme, skal de ikke indgå af ordren
         orderInfo.innerHTML =
             "Dato for udlejning: " +
             order.orderDay +
@@ -101,7 +102,6 @@ async function populateOrders() {
 /*  MM: The following function is activated whenever the window has loaded. This is done by using the "window.onload"
 event handler.
  */
-//Function written by Mikkel Marcher
 window.onload = function getCustomerInfo() {
     /*
     MM:
@@ -135,90 +135,17 @@ window.onload = function getCustomerInfo() {
     document.getElementById("loginPhone").innerHTML =
         "Logget ind med ID: <br>" + localStorage.getItem("phone");
 
-    /*
-    MM:
-    Two variables are created. The variable "orderAmount" is set equal to the length of the array "orderArray" that is saved in local storage.
-    The array is retrieved from local storage by using JSON.parse. The array from local storage is saved as the "orderArray" variable.
-     */
-
-    // var orderAmount = JSON.parse(localStorage.getItem("orderArray")).length;
-    //var orderArray = JSON.parse(localStorage.getItem("orderArray"));
     populateOrders();
-
-    /* MM: The following for loop cycles through all the stored orders and prints the order information onto the page
-    if the order's phone number matches the phone number of the logged in user.
-     */
-    //     var i;
-    //     for (i = 0; i < orderAmount; i++) {
-    //         if (true) {
-    //             /*
-    //             MM: Variables are created and set equal to the corresponding values of the number i object of the orderArray.
-    //              */
-    //             var day = orderArray[i].orderDay;
-    //             var month = orderArray[i].orderMonth;
-    //             var year = orderArray[i].orderYear;
-    //             var timePeriod = orderArray[i].timePeriod;
-    //             var amount1 = orderArray[i].amount1;
-    //             var amount2 = orderArray[i].amount2;
-    //             var amount3 = orderArray[i].amount3;
-    //             var orderPrice = orderArray[i].orderPrice;
-    //             var orderID = orderArray[i].orderId;
-
-    //             /* MM: A new variable is created and set equal to the createElement() method, as we want to create a new <p> tag.
-    //              */
-    //             var orderInfo = document.createElement("P");
-    //             /*
-    //             MM: The innerHTML of the newly created <p> tag is set equal to a section of text and the variables above.
-    //              */
-    //             orderInfo.innerHTML =
-    //                 "Dato for udlejning: " +
-    //                 day +
-    //                 "/" +
-    //                 month +
-    //                 "/" +
-    //                 year +
-    //                 "</br></br>" +
-    //                 "Tidspunkt for udlejning: kl." +
-    //                 timePeriod +
-    //                 "</br></br>" +
-    //                 "Antal Sea Doo Spark: " +
-    //                 amount1 +
-    //                 "</br></br>" +
-    //                 "Antal Yamaha Waverunner VX: " +
-    //                 amount2 +
-    //                 "</br></br>" +
-    //                 "Antal Kawasaki STX-15F: " +
-    //                 amount3 +
-    //                 "</br></br>" +
-    //                 "Samlet pris til betaling ved udlejning: " +
-    //                 orderPrice +
-    //                 "</br></br> Ordre ID: " +
-    //                 orderID +
-    //                 "</br></br>";
-    //             /*
-    //             MM: The appendChild method is used to set the newly created <p> tag as a child to to the ID "orderList", specified in the
-    //             getElementById method.
-    //              */
-    //             document.getElementById("orderList").appendChild(orderInfo);
-    //             /*
-    //             MM: The following line empties the innerHTML of the noOrders ID tag. If the line below is not run, the text
-    //             explains that there are no orders. Whenever the line below is run, the text is removed.
-    //              */
-    //             document.getElementById("noOrders").innerHTML = "";
-    //         }
-    //     }
-    // };
 };
+
 /*
 MM: Two variables are created. The "selection" variable is set equal to the HTML select tag with the ID "orderID".
 The "option" variable is set equal to the options of the "selection" variable.
  */
 var selection = document.getElementById("orderId");
 
-/*
-MM: The following function deletes the order that is currently selected.
- */
-//Function written by Morten Dyberg
+
+// MM: The following function deletes the order that is currently selected.
 function deleteOrder() {
     var orderArray = JSON.parse(localStorage.getItem("orderArray"));
     /*
@@ -265,7 +192,6 @@ function deleteOrderAlert() {
 /*
 MM: The deleteUser function deletes the current user from the userArray.
  */
-//Function written by Morten Dyberg
 function deleteUser() {
     var userArray = JSON.parse(localStorage.getItem("userArray"));
     var choice = window.confirm(
