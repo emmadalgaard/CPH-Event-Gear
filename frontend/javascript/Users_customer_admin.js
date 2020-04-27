@@ -131,11 +131,11 @@ async function loginVal(phone, password) {
         await fetch("http://localhost:3000/customer")
     ).json();
     customerArray.forEach((customer) => {
-        if (phone == customer.phone && password == customer.password) {
+        if (customer.phone == phone && customer.password == password) {
             success = true;
         }
-
     });
+    console.log(customerArray);
 
     if(success) {
         console.log("You successfully logged in");
