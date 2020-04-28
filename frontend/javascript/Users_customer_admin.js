@@ -135,36 +135,19 @@ async function loginVal(phone, password) {
             success = true;
         }
     });
-    console.log(customerArray);
 
     if(success) {
         console.log("You successfully logged in");
+        //sætter telefonnummer i local storage for at tjekke, om en bruger er logget ind
+        localStorage.setItem("phone", phone);
+        localStorage.setItem('customerName', customerArray.customerName);
+        window.location = "profile.html"
+
     } else {
         console.log("Wrong login, try again");
     }
     return success;
 }
-
-/*
-app.get   (req,res) => {
-
-}
-
-async function loginVal(){
-    var phone = document.getElementById("phone").value;
-    var password = document.getElementById("password").value;
-    //var status = false;
-
-    var client = new HttpClient();
-    client.get("http://localhost:3000/customer", function(response) {
-        // do something with response
-    });
-}*/
-
-/* for at finde phone og passwrod
-BlogPost.find({ title:/The/}, (error, blogspot) =>{ console.log(error,blogspot) })
- */
-
 
 /*function loginVal() {
     var userArray = JSON.parse(localStorage.getItem('userArray'));
@@ -190,7 +173,6 @@ BlogPost.find({ title:/The/}, (error, blogspot) =>{ console.log(error,blogspot) 
     if (status==false) {
         alert("Forkert ID eller password. Prøv igen.");
     }*/
-
 
 
 //A class is created for the admin. The only properties in this class are username and password.
@@ -222,7 +204,7 @@ function validate() {
     } else if (phone == admin1.username && password != admin1.password) {
         alert("Forkert ID eller password. Prøv igen.")
     } else if (phone != admin1.username) {
-        loginVal();
+        loginVal(phone, password);
     }
 }
 
