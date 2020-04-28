@@ -1,6 +1,9 @@
 @font-face {
     font-family: modernSansLight;
-    /*src: url(./frontend/fonts/ModernSans-Light.otf)*/
+    src: url("../fonts/ModernSans-Light.otf");
+}
+body{
+    background-image: url("../images/confetti.png");
 }
 
 #headTitle {
@@ -27,6 +30,9 @@
     overflow: hidden;
 }
 
+#textField {
+    text-align: center;
+}
 #buttonStyle {
     font-family: modernSansLight;
     font-size: 17px;
